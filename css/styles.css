@@ -1,0 +1,31 @@
+:root {
+  --primary-color: #357b70;
+  --secondary-color: #e0b354;
+  --background-color: lightgray;
+  --text-color: #061539;
+  --font-size-text: 16px;
+  --font-size-h1: 30px;
+  --font-size-h2: 24px;
+  --font-size-h3: 18px;
+  --font-weight-text: 400;
+  --font-weight-header: 700;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: var(--font-weight-text);
+  font-size: var(--font-size-text);
+  line-height: 1.6;
+  max-width: 1000px;
+  margin: 50px;
+  border: 2px;
+  border-style: solid;
+  border-color: var(--secondary-color);
+  padding: 10px;
+}
