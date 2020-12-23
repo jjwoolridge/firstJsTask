@@ -25,36 +25,41 @@ pokemonList[3] = {
 }
 
 
-/* code used to practice during reading
-let day = 'Sunday';
-
-if (day === 'Sunday' || day === 'Saturday') {
-  console.log('Today is the weekend');
-} else {
-  console.log('Today is not the weekend');
-}
-
-let age = 32;
-
-let result = age > 21 ? 'bet you drink alot' : 'you should not be drinking';
-console.log(result);
-
-let dogs = ['gidjit', 'stewie', 'peaches', 'steve', 'oreo']
-for (let i = 0; i < dogs.length; i++) {
-  console.log(dogs[i]);
-}
-*/
-
-/* iterating through pokemon list */
+/* iterating through pokemon list - old style
 for (let i = 0; i < pokemonList.length; i++) {
   document.write(pokemonList[i].name + ' (height: ' + pokemonList[i].height + ')');
-  /* labels the fairy pokemon of the list*/
+  /* labels the fairy pokemon of the list*
   if (pokemonList[i].type === 'fairy' || pokemonList[i].type === 'dragon') {
     document.write(" - it's a mytical pokemon!")
   }
-  /* labels the smallest pokemon of the list, regardless of if it may also be the mythical pokemon */
+  /* labels the smallest pokemon of the list, regardless of if it may also be the mythical pokemon *
   if (pokemonList[i].height < 0.5) {
     document.write(" - it's a tiny pokemon!")
   }
   document.write('<br>');
 }
+*/
+
+pokemonList.forEach(function(pokemon) {
+  document.write(pokemon.name + ' (height: ' + pokemon.height + ')');
+  if (pokemon.type === 'fairy' || pokemon.type === 'dragon') {
+    document.write(" - it's a mythical pokemon!")
+  }
+  if (pokemon.height <.5) {
+    document.write(" - it's a tiny pokemon!")
+  }
+  document.write('<br>');
+});
+
+
+/* for each practice
+let anne = {
+  name: 'Anne',
+  age: 38,
+  children: []
+};
+
+Object.keys(anne).forEach(function(property) {
+  console.log(anne[property]);
+});
+*/
