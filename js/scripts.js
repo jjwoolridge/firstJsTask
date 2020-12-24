@@ -1,29 +1,53 @@
-let pokemonList = [];
+let pokemonRepository = (function () {
+  let pokemonList = [];
+  pokemonList[0] = {
+    name: 'Eevee',
+    height: 0.3,
+    type: 'field'
+  }
 
-pokemonList[0] = {
-  name: 'Eevee',
-  height: 0.3,
-  type: 'field'
-}
+  pokemonList[1] = {
+    name: 'Vulpix',
+    height: 0.6,
+    type: 'field'
+  }
 
-pokemonList[1] = {
-  name: 'Vulpix',
-  height: 0.6,
-  type: 'field'
-}
+  pokemonList[2] = {
+    name: 'Ponyta',
+    height: 1.0,
+    type: 'field'
+  }
 
-pokemonList[2] = {
-  name: 'Ponyta',
-  height: 1.0,
-  type: 'field'
-}
+  pokemonList[3] = {
+    name: 'Chansey',
+    height: 1.1,
+    type: 'fairy'
+  }
 
-pokemonList[3] = {
-  name: 'Chansey',
-  height: 1.1,
-  type: 'fairy'
-}
+  function add(pokemon) {
+    if (typeof pokemon === 'object' && JSON.stringify(Object.keys(pokemon)) === JSON.stringify(["name", "height", "type"])){
+      pokemonList.push(pokemon);
+    }
+    else {
+      console.log('pokemon is not an array object with keys ["name", "height", "type"]');
+    }
+  }
 
+  function getAll() {
+    return pokemonList;
+  }
+
+  function pokeFindFilter(pokeList, pokeName) {
+    return pokeList.filter(pokemon => pokemon.name === pokeName)
+  }
+
+  return {
+    add: add,
+    getAll: getAll,
+    pokeFindFilter: pokeFindFilter
+  };
+
+})();
 
 /* iterating through pokemon list - old style
 for (let i = 0; i < pokemonList.length; i++) {
@@ -40,7 +64,7 @@ for (let i = 0; i < pokemonList.length; i++) {
 }
 */
 
-pokemonList.forEach(function(pokemon) {
+(pokemonRepository.getAll()).forEach(function(pokemon) {
   document.write(pokemon.name + ' (height: ' + pokemon.height + ')');
   if (pokemon.type === 'fairy' || pokemon.type === 'dragon') {
     document.write(" - it's a mythical pokemon!")
@@ -51,15 +75,4 @@ pokemonList.forEach(function(pokemon) {
   document.write('<br>');
 });
 
-
-/* for each practice
-let anne = {
-  name: 'Anne',
-  age: 38,
-  children: []
-};
-
-Object.keys(anne).forEach(function(property) {
-  console.log(anne[property]);
-});
-*/
+console.log(pokemonRepository.pokeFindFilter(pokemonRepository.getAll(), 'Eevee'));
