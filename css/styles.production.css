@@ -16,11 +16,69 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 16px;
+  text-align: center;
   line-height: 1.6;
+}
+
+.content {
   max-width: 1000px;
-  margin: 50px;
-  border: 2px;
-  border-style: solid;
-  border-color: #e0b354;
+  margin: 50px auto;
   padding: 10px;
+}
+
+footer {
+    background-color: #bababa;
+    width: auto;
+    padding: 10px;
+}
+
+footer > p {
+  position: relative;
+  top: -60px;
+}
+
+h1 {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.pokemon-list {
+  list-style-type: none;
+  display: block;
+  -webkit-padding-start: 0;
+          padding-inline-start: 0;
+}
+
+.pokeButton {
+  border: none;
+  width: 100px;
+  font-family: inherit;
+  background-color: #489c79;
+  color: #061539;
+  text-decoration: none;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 3px;
+  border-right: 2px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 3px solid rgba(0, 0, 0, 0.4);
+  -webkit-transition: 0.3s opacity;
+  -o-transition: 0.3s opacity;
+  transition: 0.3s opacity;
+}
+
+.pokeButton:hover,
+.pokeButton:focus {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.email-button {
+  border: none;
+  text-decoration: none;
+  color: #103795;
+}
+
+.email-button:hover {
+  cursor: pointer;
+  color: #e0b354;
 }
