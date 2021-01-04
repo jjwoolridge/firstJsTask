@@ -41,38 +41,40 @@ let pokemonRepository = (function () {
     return pokeList.filter(pokemon => pokemon.name === pokeName)
   }
 
+  function addListItem(pokemon) {
+    let pokeList = document.querySelector('.pokemon-list');
+    let listItem = document.createElement('li');
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('pokeButton');
+    listItem.appendChild(button);
+    pokeList.appendChild(listItem);
+    addButtonClickListener(button, pokemon);
+  }
+
+  function showDetails(pokemon){
+    console.log(pokemon);
+  }
+
+  function addButtonClickListener(button, pokemon) {
+    button.addEventListener('click', function (event) {
+      showDetails(pokemon);
+    });
+  }
+
   return {
     add: add,
     getAll: getAll,
-    pokeFindFilter: pokeFindFilter
+    pokeFindFilter: pokeFindFilter,
+    addListItem: addListItem,
+    showDetails: showDetails,
+    addButtonClickListener: addButtonClickListener
   };
 
 })();
 
-/* iterating through pokemon list - old style
-for (let i = 0; i < pokemonList.length; i++) {
-  document.write(pokemonList[i].name + ' (height: ' + pokemonList[i].height + ')');
-  /* labels the fairy pokemon of the list*
-  if (pokemonList[i].type === 'fairy' || pokemonList[i].type === 'dragon') {
-    document.write(" - it's a mytical pokemon!")
-  }
-  /* labels the smallest pokemon of the list, regardless of if it may also be the mythical pokemon *
-  if (pokemonList[i].height < 0.5) {
-    document.write(" - it's a tiny pokemon!")
-  }
-  document.write('<br>');
-}
-*/
-
 (pokemonRepository.getAll()).forEach(function(pokemon) {
-  document.write(pokemon.name + ' (height: ' + pokemon.height + ')');
-  if (pokemon.type === 'fairy' || pokemon.type === 'dragon') {
-    document.write(" - it's a mythical pokemon!")
-  }
-  if (pokemon.height <.5) {
-    document.write(" - it's a tiny pokemon!")
-  }
-  document.write('<br>');
+  pokemonRepository.addListItem(pokemon);
 });
 
-console.log(pokemonRepository.pokeFindFilter(pokemonRepository.getAll(), 'Eevee'));
+//console.log(pokemonRepository.pokeFindFilter(pokemonRepository.getAll(), 'Eevee'));
