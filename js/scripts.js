@@ -1,36 +1,14 @@
 let pokemonRepository = (function () {
   let pokemonList = [];
-  pokemonList[0] = {
-    name: 'Eevee',
-    height: 0.3,
-    type: 'field'
-  }
-
-  pokemonList[1] = {
-    name: 'Vulpix',
-    height: 0.6,
-    type: 'field'
-  }
-
-  pokemonList[2] = {
-    name: 'Ponyta',
-    height: 1.0,
-    type: 'field'
-  }
-
-  pokemonList[3] = {
-    name: 'Chansey',
-    height: 1.1,
-    type: 'fairy'
-  }
+  let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
 
   function add(pokemon) {
-    if (typeof pokemon === 'object' && JSON.stringify(Object.keys(pokemon)) === JSON.stringify(["name", "height", "type"])){
+    // if (typeof pokemon === 'object' && JSON.stringify(Object.keys(pokemon)) === JSON.stringify(["name", "height", "type"])){
       pokemonList.push(pokemon);
-    }
-    else {
-      console.log('pokemon is not an array object with keys ["name", "height", "type"]');
-    }
+    // }
+    // else {
+    //   console.log('pokemon is not an array object with keys ["name", "height", "type"]');
+    // }
   }
 
   function getAll() {
@@ -53,7 +31,9 @@ let pokemonRepository = (function () {
   }
 
   function showDetails(pokemon){
-    console.log(pokemon.name);
+    loadDetails(pokemon).then(function() {
+      console.log(pokemon);
+    });
   }
 
   function addButtonClickListener(button, pokemon) {
@@ -62,19 +42,69 @@ let pokemonRepository = (function () {
     });
   }
 
+  function loadList() {
+    showLoadingMessage();
+    return fetch(apiUrl).then(function (response) {
+      console.log(apiUrl);
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item){
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url,
+        };
+        add(pokemon);
+      });
+      hideLoadingMessage();
+    }).catch(function(e) {
+      console.error(e);
+      hideLoadingMessage();
+    })
+  }
+
+  function loadDetails(item) {
+    showLoadingMessage();
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function(details) {
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = details.types;
+      hideLoadingMessage();
+    }).catch(function(e) {
+      console.error(e);
+      hideLoadingMessage();
+    });
+  }
+
+  function showLoadingMessage() {
+    let message = document.querySelector('#loadingmessage');
+    message.classList.remove('hidden');
+  }
+
+  function hideLoadingMessage() {
+    let message = document.querySelector('#loadingmessage');
+    message.classList.add('hidden');
+  }
+
   return {
     add: add,
     getAll: getAll,
     pokeFindFilter: pokeFindFilter,
     addListItem: addListItem,
     showDetails: showDetails,
-    addButtonClickListener: addButtonClickListener
+    addButtonClickListener: addButtonClickListener,
+    loadList: loadList,
+    loadDetails: loadDetails
   };
 
 })();
 
-(pokemonRepository.getAll()).forEach(function(pokemon) {
-  pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function() {
+  (pokemonRepository.getAll()).forEach(function(pokemon) {
+    pokemonRepository.addListItem(pokemon);
+  });
 });
 
 //console.log(pokemonRepository.pokeFindFilter(pokemonRepository.getAll(), 'Eevee'));
