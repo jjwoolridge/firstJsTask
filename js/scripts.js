@@ -1,6 +1,6 @@
 let pokemonRepository = (function () {
   let pokemonList = [];
-  let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   function add(pokemon) {
       pokemonList.push(pokemon);
@@ -19,7 +19,7 @@ let pokemonRepository = (function () {
     let listItem = document.createElement('li');
     let button = document.createElement('button');
     button.innerText = pokemon.name;
-    button.setAttribute("type", "button");
+    button.setAttribute('type', 'button');
     button.classList.add('btn');
     button.classList.add('pokeButton');
     button.setAttribute('data-toggle', 'modal');
@@ -27,7 +27,7 @@ let pokemonRepository = (function () {
     listItem.classList.add('group-list-item');
     listItem.appendChild(button);
     pokeList.appendChild(listItem);
-    button.addEventListener("click", function() {
+    button.addEventListener('click', function() {
       showDetails(pokemon)
     });
   }
@@ -88,20 +88,20 @@ let pokemonRepository = (function () {
 
   function showModal(pokemon) {
     // creating variables for content
-    let modalBody = $(".modal-body");
-    let modalTitle = $(".modal-title");
-    let modalHeader = $(".modal-header");
+    let modalBody = $('.modal-body');
+    let modalTitle = $('.modal-title');
+    let modalHeader = $('.modal-header');
 
     // clearing old modal info
     modalTitle.empty();
     modalBody.empty();
 
     //creating modal content
-    let nameOfPokemon = $("<h1>" + pokemon.name + "</h1>");
+    let nameOfPokemon = $('<h1>' + pokemon.name + '</h1>');
     let imageOfPokemon = $('<img class="modal-img" style="width=100%">');
-    imageOfPokemon.attr("src", pokemon.imageUrl);
-    let heightOfPokemon = $("<p>Height: " + pokemon.height + "</p>");
-    let weightOfPokemon = $("<p>Weight: " + pokemon.weight + "</p>");
+    imageOfPokemon.attr('src', pokemon.imageUrl);
+    let heightOfPokemon = $('<p>Height: ' + pokemon.height + '</p>');
+    let weightOfPokemon = $('<p>Weight: ' + pokemon.weight + '</p>');
 
     modalTitle.append(nameOfPokemon);
     modalBody.append(imageOfPokemon);
@@ -127,5 +127,3 @@ pokemonRepository.loadList().then(function() {
     pokemonRepository.addListItem(pokemon);
   });
 });
-
-//console.log(pokemonRepository.pokeFindFilter(pokemonRepository.getAll(), 'Eevee'));
